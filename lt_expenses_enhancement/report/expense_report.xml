@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_hr_expense_sheet_full_report" model="ir.actions.server">
+        <field name="name">Complete Expenses Report</field>
+        <field name="model_id" ref="hr_expense.model_hr_expense_sheet"/>
+        <field name="binding_model_id" ref="hr_expense.model_hr_expense_sheet"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.print_complete_expense_report()</field>
+    </record>
+      <record id="hr_expense.action_report_hr_expense_sheet" model="ir.actions.report">
+        <field name="attachment">object.name</field>
+    </record>
+</odoo>
