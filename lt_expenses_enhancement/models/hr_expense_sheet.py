@@ -23,7 +23,7 @@ class HrExpenseSheet(models.Model):
         if not self.is_multiple_currency:
             for sheet in self:
                 sheet.total_amount_single_currency = ("%.2f" % sum(
-                    sheet.expense_line_ids.mapped('total_amount'))) + ' ' + self.expense_line_ids.currency_id.symbol
+                    sheet.expense_line_ids.mapped('total_amount'))) + ' ' + sheet.expense_line_ids.currency_id.symbol
 
     def print_complete_expense_report(self):
         """An attachment with the expense report along with all attachments is created"""
