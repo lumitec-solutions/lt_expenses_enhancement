@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_expense_sheet_total" inherit_id="hr_expense.report_expense_sheet">
+        <xpath expr="//tr[hasclass('border-black')]" position="after">
+            <t t-if="not o.is_multiple_currency" class="text-right">
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-right">
+                        <t t-esc="sum(o.expense_line_ids.mapped('total_amount'))"
+                           t-options='{"widget": "monetary", "display_currency": o.expense_line_ids.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table/thead/tr/th[4]" position="replace">
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table/thead/tr/th[5]" position="replace">
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table/tbody/tr/td[4]" position="replace">
+        </xpath>
+        <xpath expr="//div[hasclass('page')]/table/tbody/tr/td[5]" position="replace">
+        </xpath>
+        <xpath expr="//td[@t-if='o.is_multiple_currency']" position="replace">
+            <td class="text-right">
+                <span t-field="line.total_amount_company"/>
+            </td>
+        </xpath>
+        <xpath expr="//th[@t-if='o.is_multiple_currency']" position="replace">
+            <th class="text-right">Price in Company Currency</th>
+        </xpath>
+    </template>
+</odoo>

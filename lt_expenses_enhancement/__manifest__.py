@@ -17,7 +17,9 @@
         'hr_expense',
     ],
     'data': [
-        "report/expense_report.xml"
+        "views/hr_expense_views.xml",
+        "report/expense_report.xml",
+        "report/hr_expense_report.xml",
     ],
 
     'installable': True,

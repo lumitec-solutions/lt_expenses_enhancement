@@ -9,11 +9,21 @@ import io
 import PyPDF2
 from PyPDF2 import PdfFileReader
 from reportlab.pdfgen import canvas
-from odoo import models
+from odoo import models, fields, api
 
 
 class HrExpenseSheet(models.Model):
     _inherit = "hr.expense.sheet"
+
+    total_amount_single_currency = fields.Char('Total Amount', compute='_compute_amount_single_currency', store=True,
+                                               tracking=True)
+
+    @api.depends('expense_line_ids.total_amount')
+    def _compute_amount_single_currency(self):
+        if not self.is_multiple_currency:
+            for sheet in self:
+                sheet.total_amount_single_currency = ("%.2f" % sum(
+                    sheet.expense_line_ids.mapped('total_amount'))) + ' ' + self.expense_line_ids.currency_id.symbol
 
     def print_complete_expense_report(self):
         """An attachment with the expense report along with all attachments is created"""
@@ -32,7 +42,8 @@ class HrExpenseSheet(models.Model):
         for page_num in range(pdfreader2.numPages):
             pageobj = pdfreader2.getPage(page_num)
             pdfwriter.addPage(pageobj)
-        results = self.env['ir.attachment'].search([('res_model', '=', 'hr.expense'), ('res_id', 'in', self.expense_line_ids.ids)])
+        results = self.env['ir.attachment'].search(
+            [('res_model', '=', 'hr.expense'), ('res_id', 'in', self.expense_line_ids.ids)])
         for result in results:
             if result.mimetype in ['image/jpeg', 'image/jpg', 'image/png']:
                 packet = io.BytesIO()

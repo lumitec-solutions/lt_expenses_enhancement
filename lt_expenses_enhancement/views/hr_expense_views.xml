@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_expense_sheet_form_view_inherit_expense_enhancement" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.form.inherit.expense.enhancement</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_residual']" position="before">
+                <field name="is_multiple_currency" invisible="1"/>
+                <field name="total_amount_single_currency" class="oe_right"
+                       attrs="{'invisible': [('is_multiple_currency', '=', True)]}"
+                       style="font-size: 17px;font-weight: bold;color: #4f4f64;"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
