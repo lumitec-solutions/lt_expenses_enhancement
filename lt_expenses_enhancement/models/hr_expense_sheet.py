@@ -55,14 +55,14 @@ class HrExpenseSheet(models.Model):
                     pdfwriter.addPage(pageobj)
         merged_pdf = io.BytesIO()
         pdfwriter.write(merged_pdf)
-        merged_file = self.env['ir.attachment'].create({
+        merged_file = self.env['ir.attachment'].sudo().create({
             'name': self.name + '.pdf',
             'datas': base64.b64encode(merged_pdf.getvalue()).decode(),
             'type': 'binary',
             'res_model': self._name,
             'res_id': self.id
         })
-        action = self.env.ref('base.action_attachment').read()[0]
+        action = self.env.ref('base.action_attachment').sudo().read()[0]
         action['views'] = [(self.env.ref('base.view_attachment_form').id, 'form')]
         action['res_id'] = merged_file.id
         return action
