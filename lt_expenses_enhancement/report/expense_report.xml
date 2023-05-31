@@ -8,7 +8,7 @@
         <field name="state">code</field>
         <field name="code">action = records.print_complete_expense_report()</field>
     </record>
-      <record id="hr_expense.action_report_hr_expense_sheet" model="ir.actions.report">
+    <record id="hr_expense.action_report_hr_expense_sheet" model="ir.actions.report">
         <field name="attachment">object.name</field>
     </record>
 </odoo>
