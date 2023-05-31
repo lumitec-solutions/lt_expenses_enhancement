@@ -56,7 +56,7 @@ class HrExpenseSheet(models.Model):
         merged_pdf = io.BytesIO()
         pdfwriter.write(merged_pdf)
         merged_file = self.env['ir.attachment'].sudo().create({
-            'name': self.name + '.pdf',
+            'name': 'Expenses - %s - %s' % (self.employee_id.name, (self.name).replace('/', '')) + '.pdf',
             'datas': base64.b64encode(merged_pdf.getvalue()).decode(),
             'type': 'binary',
             'res_model': self._name,
