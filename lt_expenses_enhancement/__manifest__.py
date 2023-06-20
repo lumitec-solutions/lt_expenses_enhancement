@@ -10,7 +10,7 @@
     'author': "lumitec GmbH",
     'website': "https://www.lumitec.solutions",
     'category': 'Human Resources/Expenses',
-    'version': '15.0.1.0.0',
+    'version': '16.0.1.0.0',
     'license': 'OPL-1',
     'depends': [
         'base',
